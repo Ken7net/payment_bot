@@ -1,0 +1,16 @@
+# Dockerfile.bot и Dockerfile.web
+FROM python:3.11-slim
+
+# Установка зависимостей для psycopg2
+RUN apt-get update && apt-get install -y gcc libpq-dev
+
+WORKDIR /app
+COPY requirements.txt .
+RUN pip install --no-cache-dir -r requirements.txt
+COPY . .
+
+# Для бота:
+CMD ["python", "bot/bot.py"]
+
+# Для веба:
+# CMD ["gunicorn", "-k", "gevent", "--bind", "0.0.0.0:5000", "webapp.app:app"]

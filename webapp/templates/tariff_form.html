@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+{% block content %}
+    <h2>{{ title }}</h2>
+    <form method="post">
+        {{ form.hidden_tag() }}
+        <div class="mb-3">
+            {{ form.utility_type.label(class="form-label") }}
+            {{ form.utility_type(class="form-select") }}
+        </div>
+        <div class="mb-3">
+            {{ form.rate.label(class="form-label") }}
+            {{ form.rate(class="form-control") }}
+        </div>
+        <div class="mb-3">
+            {{ form.valid_from.label(class="form-label") }}
+            {{ form.valid_from(class="form-control") }}
+        </div>
+        {{ form.submit(class="btn btn-success") }}
+        <a href="{{ url_for('main.tariffs') }}" class="btn btn-secondary">Отмена</a>
+    </form>
+{% endblock %}

@@ -1,0 +1,39 @@
+version: '3.8'
+
+services:
+  redis:
+    image: redis:7-alpine
+    restart: always
+    networks:
+      - payment-net
+
+  bot:
+    build:
+      context: .
+      dockerfile: Dockerfile.bot
+    env_file: .env
+    restart: always
+    depends_on:
+      - redis
+    networks:
+      - payment-net
+
+  web:
+    build:
+      context: .
+      dockerfile: Dockerfile.web
+    env_file: .env
+    restart: always
+    depends_on:
+      - redis
+    networks:
+      - payment-net
+    ports:
+      - "5000:5000"  # Для локальной разработки (в продакшене — через Traefik)
+
+volumes:
+  db_data:
+
+networks:
+  payment-net:
+    driver: bridge

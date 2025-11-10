@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+{% block content %}
+    <h2>Тарифы</h2>
+    <a href="{{ url_for('main.new_tariff') }}" class="btn btn-primary mb-3">+ Новый тариф</a>
+    <table class="table">
+        <thead>
+        <tr>
+            <th>Ресурс</th>
+            <th>Тариф (руб)</th>
+            <th>Действует с</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for t in tariffs %}
+            <tr>
+                <td>{{ {'electricity':'Электричество', 'water_cold':'ХВС', 'water_hot':'ГВС', 'gas':'Газ'}[t.utility_type] }}</td>
+                <td>{{ "%.2f"|format(t.rate) }}</td>
+                <td>{{ t.valid_from }}</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+{% endblock %}

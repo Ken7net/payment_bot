@@ -1,0 +1,3 @@
+# Procfile
+web: gunicorn -k gevent --bind 0.0.0.0:$PORT webapp.app:app
+worker: python bot/bot.py
